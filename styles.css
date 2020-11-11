@@ -85,6 +85,11 @@ body::after {
     margin-top: 20px;
     animation: fadeInGif ease-in 5s;
     width: 300px;
+    height: 249px;
+    background: url("https://d.wattpad.com/story_parts/837710361/images/15f26e80b98996db696933165236.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
 }
 
 @keyframes fadeInGif {
@@ -103,4 +108,7 @@ body::after {
         align-items: center;
         margin-top: 50%;
     }
+}
+#gif-container.show {
+    display: block;
 }

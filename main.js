@@ -15,7 +15,7 @@ const searchBar = document.getElementById("search-bar");
 
 let query = '';
 
-searchBar.addEventListener('keyup', function(e) {
+searchBar.addEventListener('keyup', function (e) {
     query = e.target.value;
     if (e.key === 'Enter') {
         e.preventDefault();
@@ -27,19 +27,20 @@ searchBar.addEventListener('keyup', function(e) {
 //een functie die de gegevens over `België` ophaalt en dit in de console logt.
 
 async function fetchCountry() {
-//10. Zorg ervoor dat de waarde van het input veld wordt leeggemaakt na elke zoekopdracht.
+    //10. Zorg ervoor dat de waarde van het input veld wordt leeggemaakt na elke zoekopdracht.
     searchBar.value = '';
 
-//11. Zorg ervoor dat er altijd maar één zoekresultaat op de pagina staat.
+    //11. Zorg ervoor dat er altijd maar één zoekresultaat op de pagina staat.
     const previousSearch = document.getElementById('country-info');
 
     if (previousSearch) {
         countryContainer.removeChild(previousSearch);
     }
 
-//13. Zorg ervoor dat als je na een ongeldige API call weer een geldige API call maakt, de foutmelding verdwenen is.
+    //13. Zorg ervoor dat als je na een ongeldige API call weer een geldige API call maakt, de foutmelding verdwenen is.
     const gifContainer = document.getElementById("gif-container");
-    gifContainer.removeAttribute('src');
+    //gifContainer.removeAttribute('src');
+    gifContainer.classList.remove('show');
 
     try {
         const result = await axios.get(
@@ -48,10 +49,10 @@ async function fetchCountry() {
 
         console.log(countryInfo);
 
-//2. Maak op basis van de response de volgende string en log dit in de console: `[country-naam] is situated in [subarea-name]. It has a population of [amount] people.`
+        //2. Maak op basis van de response de volgende string en log dit in de console: `[country-naam] is situated in [subarea-name]. It has a population of [amount] people.`
         const countryDescriptionBuilder = `${countryInfo.name} is situated in ${countryInfo.subregion}. It has a population of ${countryInfo.population} people.`;
 
-//3. Maak op basis van de response de volgende string en log dit in de console: `The capital is [city]`
+        //3. Maak op basis van de response de volgende string en log dit in de console: `The capital is [city]`
         const countryCapitalBuilder = `The capital is ${countryInfo.capital}`
 
         //4. Maak een functie die ongeacht het aantal currencies die in een land gebruikt worden, een string maakt:
@@ -62,28 +63,28 @@ async function fetchCountry() {
             if (countryInfo.currencies.length === 1 || idx === 0) {
                 return `${acc} ${currency.name}'s`;
             }
-            if (idx !== countryInfo.currencies.length -1 && idx !==0) {
+            if (idx !== countryInfo.currencies.length - 1 && idx !== 0) {
                 return `${acc}, ${currency.name}'s`;
             }
-            if (idx === countryInfo.currencies.length -1) {
+            if (idx === countryInfo.currencies.length - 1) {
                 return `${acc} and ${currency.name}'s`;
             }
         }, 'and you can pay with');
 
-//5. Check of alles nog steeds werkt als je de gegevens over _Aruba_ of _Duitsland_ ophaalt.
-//6. Maak een functie die ongeacht het aantal talen die in een land gesproken worden, een string maakt:
-//* 1 taal: `They speak [language]`
-//* 2 talen: `They speak [language] and [language]`
-//* 3 talen: `They speak [language], [language] and [language]`
+        //5. Check of alles nog steeds werkt als je de gegevens over _Aruba_ of _Duitsland_ ophaalt.
+        //6. Maak een functie die ongeacht het aantal talen die in een land gesproken worden, een string maakt:
+        //* 1 taal: `They speak [language]`
+        //* 2 talen: `They speak [language] and [language]`
+        //* 3 talen: `They speak [language], [language] and [language]`
 
         const languageStringBuilder = countryInfo.languages.reduce((acc, language, idx) => {
             if (countryInfo.languages.length === 1 || idx === 0) {
                 return `${acc} ${language.name}`;
             }
-            if (idx !== countryInfo.languages.length -1 && idx !==0) {
+            if (idx !== countryInfo.languages.length - 1 && idx !== 0) {
                 return `${acc}, ${language.name}`;
             }
-            if (idx === countryInfo.languages.length -1) {
+            if (idx === countryInfo.languages.length - 1) {
                 return `${acc} and ${language.name}`;
             }
         }, 'They speak');
@@ -130,11 +131,12 @@ async function fetchCountry() {
 
         return countryContainer.appendChild(countryDiv);
 
-//12. Zorg ervoor dat als er naar een land wordt gezocht dat niet bestaat, er een foutmelding in de DOM wordt gezet.
-//_Tip:_ als er een ongeldige API call wordt gemaakt, zal de response in het `catch` blok terecht komen.
+        //12. Zorg ervoor dat als er naar een land wordt gezocht dat niet bestaat, er een foutmelding in de DOM wordt gezet.
+        //_Tip:_ als er een ongeldige API call wordt gemaakt, zal de response in het `catch` blok terecht komen.
 
     } catch (e) {
         console.error(e);
-        gifContainer.setAttribute('src', 'https://d.wattpad.com/story_parts/837710361/images/15f26e80b98996db696933165236.gif');
+        // gifContainer.setAttribute('src', 'https://d.wattpad.com/story_parts/837710361/images/15f26e80b98996db696933165236.gif');
+        gifContainer.classList.add('show');
     }
 }
