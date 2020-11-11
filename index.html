@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
     <title>Search country information</title>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
 </head>
 <body>
-        <input id="search-bar" type="text" placeholder="Search country" >
-        <button id="search-button" type="submit" >
-           Search
-        </button>
-        <br>
-        <br>
-        <div id="country-container">
+    <div id="country-container">
+        <div id="search-wrapper">
+            <input id="search-bar" type="text" placeholder="Search country" >
+            <input id="search-button" type="image" src="https://screenshots.gamebanana.com/img/ico/sprays/pow_block_preview.png">
         </div>
-        <span id="error-message"></span>
+        <div id="info-wrapper">
+            <img id="gif-container">
+        </div>
+    </div>
+
     <script src="./node_modules/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
 </body>

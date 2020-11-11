@@ -4,7 +4,7 @@ const searchButton = document.getElementById("search-button");
 
 searchButton.addEventListener('click', fetchCountry);
 
-const countryContainer = document.getElementById("country-container");
+const countryContainer = document.getElementById("info-wrapper");
 
 //8. Maak een inputveld op de pagina en zorg ervoor dat als de gebruiker op enter drukt, de functie wordt
 // aangeroepen waarmee de gegevens over `België` worden opgehaald.
@@ -17,7 +17,7 @@ let query = '';
 
 searchBar.addEventListener('keyup', function(e) {
     query = e.target.value;
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
         e.preventDefault();
         fetchCountry();
     }
@@ -31,16 +31,15 @@ async function fetchCountry() {
     searchBar.value = '';
 
 //11. Zorg ervoor dat er altijd maar één zoekresultaat op de pagina staat.
-    const previousSearch = document.getElementById('countryDiv');
+    const previousSearch = document.getElementById('country-info');
 
     if (previousSearch) {
         countryContainer.removeChild(previousSearch);
     }
 
-//12. Zorg ervoor dat als er naar een land wordt gezocht dat niet bestaat, er een foutmelding in de DOM wordt gezet.
-//_Tip:_ als er een ongeldige API call wordt gemaakt, zal de response in het `catch` blok terecht komen.
-    const errorMessage = document.getElementById("error-message");
-    errorMessage.textContent = '';
+//13. Zorg ervoor dat als je na een ongeldige API call weer een geldige API call maakt, de foutmelding verdwenen is.
+    const gifContainer = document.getElementById("gif-container");
+    gifContainer.removeAttribute('src');
 
     try {
         const result = await axios.get(
@@ -96,37 +95,51 @@ async function fetchCountry() {
         The capital is [city] and you can pay with [currency]'s
         They speak [language], [language] and [language]
         */
-        const countryDiv = document.createElement("div");
-        countryDiv.setAttribute('id', 'countryDiv');
+        const countryDiv = document.createElement('div');
+        countryDiv.setAttribute('id', 'country-info');
 
-        const countryFlag = document.createElement("img");
-        countryFlag.setAttribute("src", countryInfo.flag);
-        countryFlag.setAttribute("width", "200px");
+        /*const spinningWorld = document.getElementById('earth-gif');
+        //<img id="earth-gif" src="https://images.squarespace-cdn.com/content/v1/5f63b41e6faf340e84cd9234/1600642437243-DMW3CWN68RHMPX0789P0/ke17ZwdGBToddI8pDm48kO4CTvG-DFvYHY5k3EOM7_xZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpyvkASp24nP-_9_SHIzxUFkrTAOgziZ9v1Pa1JNPFSdJ7Ch0UtqSOSOeDjW-E2sqOE/rotation.gif?format=300w">
+        if (spinningWorld.src != 'https://i.ibb.co/gDjzvkh/The-World-is-Spinning.png'){
+            spinningWorld.src = 'https://i.ibb.co/gDjzvkh/The-World-is-Spinning.png';
+        }
+        else {
+            spinningWorld.src = "https://images.squarespace-cdn.com/content/v1/5f63b41e6faf340e84cd9234/1600642437243-DMW3CWN68RHMPX0789P0/ke17ZwdGBToddI8pDm48kO4CTvG-DFvYHY5k3EOM7_xZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpyvkASp24nP-_9_SHIzxUFkrTAOgziZ9v1Pa1JNPFSdJ7Ch0UtqSOSOeDjW-E2sqOE/rotation.gif?format=300w";
+        }*/
+
+        const countryFlag = document.createElement('img');
+        countryFlag.setAttribute('src', countryInfo.flag);
+        countryFlag.setAttribute('width', '150px');
         countryDiv.appendChild(countryFlag);
 
-        const countryName = document.createElement("h1");
+        const countryName = document.createElement('h1');
         countryName.textContent = countryInfo.name;
         countryDiv.appendChild(countryName);
 
-        const countryDescription = document.createElement("p");
+        const countryDescription = document.createElement('p');
         countryDescription.textContent = countryDescriptionBuilder;
         countryDiv.appendChild(countryDescription);
 
-        const countryCapitalAndCurrency = document.createElement("p");
+        const countryCapitalAndCurrency = document.createElement('p');
         countryCapitalAndCurrency.textContent = `${countryCapitalBuilder} ${currencyStringBuilder}.`;
         countryDiv.appendChild(countryCapitalAndCurrency);
 
-        const countryLanguage = document.createElement("p");
+        const countryLanguage = document.createElement('p');
         countryLanguage.textContent = `${languageStringBuilder}.`;
         countryDiv.appendChild(countryLanguage);
 
+        const marioGif = document.createElement('img');
+        marioGif.setAttribute('src', '');
+        marioGif.setAttribute('width', '150px');
+        countryDiv.appendChild(marioGif);
+
         return countryContainer.appendChild(countryDiv);
 
-        } catch (e) {
-        errorMessage.textContent = `That's not a country dummy!`
+//12. Zorg ervoor dat als er naar een land wordt gezocht dat niet bestaat, er een foutmelding in de DOM wordt gezet.
+//_Tip:_ als er een ongeldige API call wordt gemaakt, zal de response in het `catch` blok terecht komen.
+
+    } catch (e) {
         console.error(e);
+        gifContainer.setAttribute('src', 'https://d.wattpad.com/story_parts/837710361/images/15f26e80b98996db696933165236.gif');
     }
 }
-
-
-

@@ -1,3 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    height: 100vh;
+}
+
+body::after {
+    width: 100vw;
+    height: 100vh;
+    content: "";
+    background: url("https://i.imgur.com/1Ewojuq.jpg") no-repeat center fixed;
+    background-size: cover;
+    opacity: 0.25;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#search-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 12%;
+    margin-bottom: 20px;
+}
+
+#search-bar {
+    font-family: "8BITWONDERNominal";
+    height: 21px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+#search-bar {
+    outline-color: hsl(6, 80%, 42%);
+}
+
+#search-button {
+    width: 50px;
+    height: 40px;
+}
+
+#search-button:focus {
+    outline:none;
+}
+
+#search-button:active {
+    transform: translateY(4px);
+}
+
+#country-container {
+    font-family: "8BITWONDERNominal";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#country-info {
+    height: 300px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 10px solid transparent;
+    border-image: url('https://images.all-free-download.com/images/graphicthumb/rpg_map_brick_border_clip_art_24017.jpg') 40 round;
+    animation: fadeInInfo ease 3s;
+}
+
+@keyframes fadeInInfo {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+#gif-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    animation: fadeInGif ease-in 5s;
+    width: 300px;
+}
+
+@keyframes fadeInGif {
+    0% {opacity:0;}
+    50% {opacity:0.3;}
+    100% {opacity:1;}
+}
+
+@media screen and (max-width: 600px) {
+    #country-container {
+    font-size: smaller;
+    }
 }
