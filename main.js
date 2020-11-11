@@ -128,11 +128,6 @@ async function fetchCountry() {
         countryLanguage.textContent = `${languageStringBuilder}.`;
         countryDiv.appendChild(countryLanguage);
 
-        const marioGif = document.createElement('img');
-        marioGif.setAttribute('src', '');
-        marioGif.setAttribute('width', '150px');
-        countryDiv.appendChild(marioGif);
-
         return countryContainer.appendChild(countryDiv);
 
 //12. Zorg ervoor dat als er naar een land wordt gezocht dat niet bestaat, er een foutmelding in de DOM wordt gezet.
